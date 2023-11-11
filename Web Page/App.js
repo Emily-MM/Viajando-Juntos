@@ -8,6 +8,8 @@ import BicicleterosPE from './components/communities/BicicleterosPE';
 import MyPosts from './components/my_account/MyPosts';
 import Register from './components/FlightBooking';
 import HotelBooking from './components/HotelBooking';
+import MyAlbums from './components/my_account/MyAlbums';
+import AddAlbum from './components/my_account/AddAlbum';
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path='/Hotel-Booking' element={<HotelBooking/>}></Route>
           <Route path='/communities/Bicicleteros-PE' element = {<BicicleterosPE/>}></Route>
           <Route path='/my-account/posts' element = {<MyPosts/>}></Route>
+          <Route path='/my-account/albums' element = {<MyAlbums/>}></Route>
+          <Route path='/my-account/albums/add' element = {<AddAlbum/>}></Route>
         </Route>
       </Routes>
 
