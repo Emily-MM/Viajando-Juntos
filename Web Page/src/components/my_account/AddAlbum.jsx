@@ -1,13 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import './AddAlbum.css'
 
-import userpfp from '../../images/users/user.jpg'
-
+import userpfp from '../../images/users/user.jpg';
+import axios from 'axios';
 
 
 function AddAlbum() {
     const [images, setImages] = useState([]);
+    /*const [title, setTitle]= useState("");
+    const [description, setDes]= useState("");*/
+    const [formData, setFormData]=useState({
+      title:" ",
+      description:" "
+    });
+
+    const handleChange=(e)=>{
+      setFormData({...formData,[e.target.name]:e.target.value});
+    }
+
+    const handleSubmit= async()=>{
+      try{
+        const result= await axios.post("http://localhost:4000/api/album/", formData);
+        console.log("Post Created", result.data);
+      }catch(error){
+        console.error("Error Creating post: ", error.response.data);
+      }
+    };
+    /*useEffect(()=>{
+      axios.post("http://localhost:4000/api/album/", formData)
+      .then(function(response){
+        console.log(response.data)
+      })
+      .catch(function(error){
+        console.log(error.response.data)
+      })
+    },[])*/
 
   const handleFileChange = (e) => {
     const selectedFiles = Array.from(e.target.files);
@@ -34,12 +62,17 @@ function AddAlbum() {
             </div>
             <div className="posts_gridP">
           <div className="create_album_container">
+            <form onSubmit={handleSubmit}>
             <h2 style={{ fontFamily: 'Poppins' ,width:'100%'}}>Crear nuevo álbum</h2>
             <div className="input_container">
               <label style={{ fontFamily: 'Poppins' }}>Título del álbum:<br/></label>
-              <input type="text" placeholder="Ingrese el título del álbum" style={{ fontFamily: 'Poppins' , width: '200px',borderRadius: '10px',padding: '7px', marginBottom:'40px'}} />
+              <input type="text" placeholder="Ingrese el título del álbum" style={{ fontFamily: 'Poppins' , width: '200px',borderRadius: '10px',padding: '7px', marginBottom:'40px'}} 
+              name="title"
+              
+              onChange={handleChange}/>
             </div>
             <div className="upload_container">
+              
               <label style={{ fontFamily: 'Poppins' }}>Subir fotos:<br/></label>
               <input type="file" multiple onChange={handleFileChange} style={{ fontFamily: 'Poppins' ,marginBottom:'40px'}} />
               {images.length > 0 && (
@@ -60,11 +93,16 @@ function AddAlbum() {
               <textarea
                 placeholder="Agregue una descripción"
                 style={{ fontFamily: 'Poppins', width: '100%', padding: '10px', borderRadius: '10px' }}
+                name="description"
+                
+                onChange={handleChange}
+
               ></textarea>
             </div>
-            <button className="create_album_button" style={{ fontFamily: 'Poppins' }}><Link to="/my-account/albums" className="stlink">
+            <button type='submit' className="create_album_button" style={{ fontFamily: 'Poppins' }}>
               Crear Álbum
-              </Link></button>
+              </button>
+            </form>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ function MyAlbums() {
                     <p className="user_emailP">gabimun2012@gmail.com</p>
                 </div>
                 <div className="action_barP">
-                    <p className="linkP">Perfil</p>
+                    <p className="linkP"><Link to="/my-account/perfil" className="stlink">Perfil</Link></p>
                     <p className="linkP">Viajes</p>
                     <p className="linkP"><Link to="/my-account/posts" className="stlink">Publicaciones</Link></p>
                     <p className="current_linkP"><Link to="/my-account/albums" className="stlink">Álbumes</Link></p>
